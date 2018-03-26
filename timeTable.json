@@ -1,0 +1,25 @@
+{
+  ['weeknumber']: {
+    date: '26-03-2018',
+    monday: {
+      date: '26-03-2018',
+      lectures: [],
+    },
+    tuesday: {
+      date: '26-03-2018',
+      lectures: [],
+    },
+    wednesday: {
+      date: '26-03-2018',
+      lectures: [],
+    },
+    thursday: {
+      date: '26-03-2018',
+      lectures: [],
+    },
+    friday: {
+      date: '26-03-2018',
+      lectures: [],
+    },
+  }
+}
