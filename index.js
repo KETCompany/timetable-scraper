@@ -1,18 +1,27 @@
+require('dotenv').config();
+
 const request = require('request-promise-native');
+const mongoose = require('./config/mongoose');
 const cheerio = require('cheerio');
 const fs = require('fs');
-
 const Promise = require("bluebird");
+const scheduleParser = require('./utils/schedule-parser');
+const Room = require('./models/room.model');
+
+const $ = cheerio;
+
+
+mongoose.connect();
 
 
 const times = [];
 const dayOfWeek = [];
 
 
-const institute = 'cmi'
+const institute = process.env.INSTITUTE
 const calendarWeek = ['kw1', 'kw2', 'kw3', 'kw4']
 
-const scheduleUrl = 'http://misc.hro.nl/roosterdienst/webroosters/'
+const scheduleUrl = process.env.SCHEDULE_URI
 
 const parseSelector = (elem) => {
     return elem.children().map((i, el) => {
@@ -27,10 +36,10 @@ const matchJSObject = (elem, jsText) => {
     return arr.map((text, value) => ({ text, value: value + 1 }));
 }
 
-const n2str = (nr) => {
+const n2str = (type, nr) => {
     var str = nr.toString();
     while (str.length < 5) str = "0" + str;
-    return (str);
+    return (type + str + '.htm');
 }
 
 const timeTableSelectors = () => {
@@ -38,8 +47,20 @@ const timeTableSelectors = () => {
     .then(resp => cheerio.load(resp, { xmlMode: false }))
     .then($ => {
         const weeks = parseSelector($('[name=week]'))
-        const types = parseSelector($('[name=type]'))
+        const types = parseSelector($('[name=type]')).reduce((acc, cur) => {
+            let id;
+            if (cur.text === 'Klassen') {
+                id = 'classes'
+            } else if (cur.text === "Docenten") {
+                id = 'tutors'
+            } else {
+                id = 'rooms'
+            }
+            acc[id] = cur.value;
+            return acc;
+        }, {});
         const jsText = $($('script')[1])[0].children[0].data;
+        
         const matchCases = [
             'classes',
             'teachers',
@@ -56,23 +77,48 @@ const timeTableSelectors = () => {
     })
 }
 
+const parseEntity = (entity, type, name) => {
+    if (type === 'r') {
+        return { type: name, ...parseRoom(entity) };
+    }
+}
+
+const parseRoom = ({value, text}) => {
+    const roomSplitted = text.split('.');
+
+    if(roomSplitted.length > 1) {
+        let location, floor, number;
+        [location, floor, number] = roomSplitted;
+        return {
+            location,
+            floor: parseInt(floor, 10),
+            number: parseInt(number, 10),
+            value,
+            name: text
+        }
+    }
+
+    return { name: roomSplitted[0], value }
+}
+
+
 timeTableSelectors()
 .then((obj) => {
+    const { classes, weeks, rooms, types } = obj;
 
-    const { classes, weeks } = obj;
-
-    const newClasses = classes.map(c => {
-        c.filename = 'c' + n2str(c.value) + '.htm'
-        return c;
-    })
     const promises = []
-    const classWeekOneParser = parseType('c', weeks[0])
-    newClasses.forEach((c) => {
+    const classWeekOneParser = parseType(types.rooms, weeks[0])
+    rooms.forEach((c) => {
         promises.push(classWeekOneParser(c));
     });
 
     Promise.all(promises)
-    .then(console.log);
+    .then(response => {
+        Room.collection.insert(response)
+            .then(result => {
+                console.log('------> ', result);
+            })
+    })
 
 
     // Promise.all([
@@ -92,19 +138,20 @@ timeTableSelectors()
 .catch(console.log)
 
 const parseType = (type,week) => entity  => {
-    return request.get(`${scheduleUrl}CMI/kw3/${week.value}/${type}/${entity.filename}`)
-        .then(resp => parseSchedule(resp, entity.filename))
-        .then(lectures => ({
-            type,
-            entity,
-            week,
-            lectures
+    const fileName = n2str(type, entity.value)
+    const department = 'CMI';
+    return request.get(`${scheduleUrl}${department}/kw3/${week.value}/${type}/${fileName}`)
+        .then(resp => scheduleParser(resp))
+        .then(({name, lectures}) => ({
+            ...parseEntity(entity, type, name),
+            // week,
+            // lectures
         }))
 }
 
 const parseWeek = (filename) => (id) => {
     return request.get(`${scheduleUrl}CMI/kw3/${week.value}/c/${filename}`)
-        .then(parseSchedule)
+        .then(scheduleParser)
         .then(lectures => ({
             id,
             lectures
@@ -114,69 +161,6 @@ const parseWeek = (filename) => (id) => {
 
 
 
-const $ = cheerio.load(fs.readFileSync('./rooster.html'));
-
-const parseSchedule = (response, lala) => {
-    const $ = cheerio.load(response);
-    const trRows = $($('table').find('tbody')[0]).children();
-
-    const tdDaysOfWeek = $(trRows.slice(0, 1)).children()
-    const trRestRows = $(trRows.slice(1));
-
-    tdDaysOfWeek.each((i, day) => {
-        if (i > 0) {
-            dayOfWeek.push($(day).text().match('[a-zA-Z0-9:-]+')[0]);
-        }
-    });
-    
-    function isBlank(str) {
-        return (!str || /^\s*$/.test(str));
-    }
-
-    let lectures = []
-
-
-    trRestRows.each((trCount, timeRow) => {
-        if ($(timeRow).children().length > 0) {
-            let time;
-            $(timeRow).children().each((tdCount, _dayColumn) => {
-                const dayColumn = $(_dayColumn);
-                if (tdCount === 0) {
-                    time = $(dayColumn.find('td')[1]).text().match('[a-zA-Z0-9:-]+')[0];
-                    times.push(time)
-                } else {
-                    const lec = dayColumn.text();
-                    const lectureDuration = dayColumn[0].attribs.rowspan / 2;
-                    if (!isBlank(lec)) {
-                        const lectureBody = $(dayColumn.find('tbody')[0]);
-                        const arr = lectureBody.children().map((i, item) => $(item).children()).get()
-                        if(arr.length > 1) {
-                            const tutor = arr[0].text().replace(/  /g, '').split(/[\n]+/).slice(1, -1)
-                            if()
-                            const rooms = arr[1].text().replace(/  /g, '').split(/[\n,]+/).slice(1, -1)
-                            const subjectCode = arr[2].text().replace(/  /g, '').split(/[\n]+/).slice(1, -1)[0]
-                            const subjectTitle = arr[arr.length - 1].text().replace(/  /g, '').split(/[\n]+/).slice(1, -1)[0]
-                            
-                            const lecture = {
-                                day: dayOfWeek[tdCount],
-                                dayOfWeek: tdCount,
-                                startTime: time.split('-')[0],
-                                endTime: '',
-                                duration: (trCount, lectureDuration, trCount + lectureDuration),
-                                tutor,
-                                rooms,
-                                subjectCode,
-                                subjectTitle
-                            }
-                            lectures.push(lecture);
-                        }
-                  
-                    }
-                }
-            });
-        }
-    });
-    return lectures;
-}
+// const $ = cheerio.load(fs.readFileSync('./rooster.html'));
 
 
