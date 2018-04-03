@@ -85,7 +85,6 @@ const parseEntity = (entity, type, name) => {
 
 const parseRoom = ({value, text}) => {
     const roomSplitted = text.split('.');
-
     if(roomSplitted.length > 1) {
         let location, floor, number;
         [location, floor, number] = roomSplitted;
@@ -114,9 +113,10 @@ timeTableSelectors()
 
     Promise.all(promises)
     .then(response => {
-        Room.collection.insert(response)
+        Room.collection.drop()
+            .then(Room.collection.insert(response))
             .then(result => {
-                console.log('------> ', result);
+                console.log('------!> ', result);
             })
     })
 
@@ -141,11 +141,11 @@ const parseType = (type,week) => entity  => {
     const fileName = n2str(type, entity.value)
     const department = 'CMI';
     return request.get(`${scheduleUrl}${department}/kw3/${week.value}/${type}/${fileName}`)
-        .then(resp => scheduleParser(resp))
-        .then(({name, lectures}) => ({
+        .then(resp => scheduleParser(resp, type, week))
+        .then(({name, booked}) => ({
             ...parseEntity(entity, type, name),
-            // week,
-            // lectures
+            booked,
+            // weeks: [{...week, booked}],
         }))
 }
 
