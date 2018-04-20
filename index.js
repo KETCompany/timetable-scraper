@@ -43,7 +43,7 @@ const n2str = (type, nr) => {
 }
 
 const timeTableSelectors = () => {
-    return request.get(`${scheduleUrl}CMI/kw3/frames/navbar.htm`)
+    return request.get(`${scheduleUrl}CMI/kw4/frames/navbar.htm`)
     .then(resp => cheerio.load(resp, { xmlMode: false }))
     .then($ => {
         const weeks = parseSelector($('[name=week]'))
@@ -140,7 +140,7 @@ timeTableSelectors()
 const parseType = (type,week) => entity  => {
     const fileName = n2str(type, entity.value)
     const department = 'CMI';
-    return request.get(`${scheduleUrl}${department}/kw3/${week.value}/${type}/${fileName}`)
+    return request.get(`${scheduleUrl}${department}/kw4/${week.value}/${type}/${fileName}`)
         .then(resp => scheduleParser(resp, type, week))
         .then(({name, booked}) => ({
             ...parseEntity(entity, type, name),
@@ -150,7 +150,7 @@ const parseType = (type,week) => entity  => {
 }
 
 const parseWeek = (filename) => (id) => {
-    return request.get(`${scheduleUrl}CMI/kw3/${week.value}/c/${filename}`)
+    return request.get(`${scheduleUrl}CMI/kw4/${week.value}/c/${filename}`)
         .then(scheduleParser)
         .then(lectures => ({
             id,

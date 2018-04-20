@@ -6,6 +6,10 @@ const isBlank = (str) => {
 }
 
 const getScheduleName = ($) => {
+  if ($($('font')[1]).text().trim() === 'H.4.318') {
+    console.log('------ ', $($('font')[1]).text().trim());
+  }
+  
   return $($('font')[2]).text().trim()
 }
 
@@ -121,7 +125,7 @@ const scheduleParser = (response, type, week) => {
 
   const lectures = [];
   const times = [];
-
+  
   const startWeek = moment(week.text, 'DD-MM-YYYY');
 
   scheduleBlockRows.each((blockCount, blockRow) => {
@@ -131,17 +135,19 @@ const scheduleParser = (response, type, week) => {
       // Time out of the time block
       let time;
       blocks.each((dayN, _dayColumn) => {
-        const date = addDays(startWeek, dayN);
-
         const dayColumn = $(_dayColumn);
         if (dayN === 0) {
           time = extractTime(dayColumn);
           times.push(time)
         } else {
           if (!isBlank(dayColumn.text())) {
+            const startWeek = moment(week.text, 'DD-MM-YYYY');
             const day = startWeek.add(dayN - 1, 'd');
+            console.log(day);
+            console.log(dayN);
             [hour, minute] = time.split('-')[0].split(':');
             const start = day.set({ hour, minute: Number(minute) })
+            
             lectures.push({
               ...scheduleItemParser(dayColumn, type),
               start: start.format(),
