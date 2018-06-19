@@ -26,8 +26,8 @@ const parseLecture = (arr, time, lectureDuration, lectureStart, day) => {
       tutor,
       rooms,
       subjectCode,
-      subjectTitle
-    }
+      subjectTitle,
+    };
     return lecture;
   }
 };
@@ -92,7 +92,7 @@ const tutorItemParser = (val, duration) => {
   let room = [];
   let group = '';
   let name = '';
-  let description = '';
+  const description = '';
   let idk = '';
 
   const res = trimmers(val);
@@ -152,7 +152,7 @@ const scheduleParser = $ => (type, week) => {
   const scheduleBlockRows = extractScheduleBlockRows(trRows);
   const lectures = [];
 
-  let special = {
+  const special = {
     1: 0,
     2: 0,
     3: 0,
