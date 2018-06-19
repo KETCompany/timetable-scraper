@@ -6,10 +6,14 @@ const roomSchema = new Schema({
   number: Number,
   department: String,
   floor: Number,
-  title: String,
   type: String,
   description: String,
-  value: Number,
+  name: String,
+  displayKeys: [String],
+  location: String,
+}, {
+  strict: 'throw',
+  useNestedStrict: true,
 });
 
 const Room = mongoose.model('Room', roomSchema);

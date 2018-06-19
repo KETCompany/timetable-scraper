@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "sync": "node index.js",
+    "test": "mocha tests/*.test.js",
+    "coverage": "mocha tests/**/*.tests.js"
   },
   "keywords": [],
   "author": "",
@@ -13,9 +15,18 @@
     "bluebird": "^3.5.1",
     "cheerio": "^1.0.0-rc.2",
     "dotenv": "^5.0.1",
+    "eslint-plugin-mocha": "^5.0.0",
     "moment": "^2.22.0",
     "mongoose": "^5.0.12",
     "request": "^2.85.0",
     "request-promise-native": "^1.0.5"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^5.1.1",
+    "sinon": "^4.5.0"
   }
 }

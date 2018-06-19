@@ -1,0 +1,229 @@
+
+<!-- saved from url=(0070)http://misc.hro.nl/roosterdienst/webroosters/CMI/kw4/frames/navbar.htm -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="expires" content="0"><meta name="GENERATOR" content="gp-Untis 2018"><title>Navigation</title><script language="JavaScript" src="./Navigation_files/untisscripts.js"></script><link rel="stylesheet" href="./Navigation_files/untisinfo.css" type="text/css"><style type="text/css">
+table.nav
+{
+	background-color: #fff;
+}
+</style><script language="JavaScript">
+var topDir = "w";
+
+function PopulateElementOption(Form, entries, flag)
+{
+ var idx = 0;
+ if (flag & 1)
+ {
+   Form.element[0] = new Option("-Alle-", 0);
+   idx++;
+ }
+ if (flag == 0 || flag & 2)
+ {
+  for (i = 0; i < entries.length; i++, idx++)
+  {
+    Form.element[idx] = new Option(entries[i], i+1);
+  }
+ }
+ if (idx > 0)
+ {
+	Form.element.selectedIndex = 0;
+	doDisplayTimetable(Form, topDir);
+ }
+}
+
+ var classes = ["BO-COM","BO-DINF","BO-INF","BO-TI","CMD1A","CMD1B","CMD1C","CMD1D","CMD1E","CMD1F","CMD1G","CMD1H","CMD2A","CMD2B","CMD2C","CMD2D","CMD2E","CMD3A","CMD3B","CMD3C","CMD3D","CMD3X","CMD4A","CMD4B","CMD4C","CMD4D","CMD-BO","COD2","COD3","COD4","COD-AD3","COV1A","COV1B","COV1C","COV1D","COV1E","COV1F","COV1G","COV1V","COV2A","COV2B","COV2C","COV2D","COV2E","COV3A","COV3B","COV3C","COV3D","COV3E","COV3F","COV3-HP","COV4A","COV4B","COV4C","COV4D","COV4E","COV4F","COV4G","COV5X","COV6X","COV-AD3","DCMD1A","DCMD2A","DCMD3A","DCMD4A","DINF1","DINF2","DINF3","DINF4","INF1A","INF1B","INF1C","INF1D","INF1E","INF1F","INF1G","INF1H","INF1I","INF1J","INF1K","INF1L","INF2A","INF2B","INF2C","INF2D","INF2E","INF2F","INF3A","INF3B","INF3C","INF3D","INF4A","INF4B","INF4C","KEU AAR01","KEU ANI01","KEU BET01","KEU FAM01K","KEU FSO01K","KEU HUV01H","KEU INF01K","KEU IPR01K","KEU JAV01K","KEU LEG01K","KEU LEX01K","KEU MOD01K","KEU NWB01K","KEU OVC01K","KEU RTV01K","KEU RUC01K","KEU SO201K","KEU SOU01K","KEU SPW01K","KEU STB01K","KEU STN01K","KEU VIE01K","KEU VIS01K","KEU WPB01K","MIN DIP01","MIN EDT01","MIN ENS02","MIN GET01","MIN IBR01","MIN IED03","MIN IED1A","MIN IED1B","MIN ILB01","MIN JOU01","MIN PRS01","MIN SLA01","MIN SMO","MIN UID01","MINBOD02","MINBOD02A","MINBOD02B","MINIED1A","MINIED1B","MINIED1C","RESCMD","TENT","TI1A","TI1B","TI1C","TI2A","TI2B","TI3A","TI3B","TI4A","TI4B","uitloop lokaal","RESINF","CMDLABEXP","CMDLABVD","CMDLABIAD"];
+ var teachers = ["A","ABBAM","ABBEM","AMEML","AMIGA","ANDRD","ANHAM","AUGUM","B","BAKEP","BARAN","BERMB","BERWM","BESSE","BEUFJ","BOELD","BOETR","BOMIR","BOOTB","BREGA","BROMK","BRUSA","BUILM","BUIMF","BUSAL","BUTHM","C","CHAMA","CO-SKA","COSTG","D","DAMTE","DELIS","DELRI","DIJKE","DIJVE","DOORP","DOPPF","DORMN","DRUMI","DUBOK","DUICP","DUJAA","DULKB","ELEVB","ELSTL","EVENTS","FAAIJ","GESSC","GIACF","GINEE","GODWM","GOOLW","GRELL","GROBJ","GUSLR","HAAMJ","HAJIM","HAMEE","HECKA","HEIGA","HEIMP","HENBJ","HENML","HESYC","HOLMI","HOUAA","HUISN","HUITT","IDSHE","IERST","IJPEW","JAGML","JANAN","CALDJ","JONTJ","JOZIB","KEURN","KINIM","KLAKS","KLEIW","KONOA","KOYUG","KROOJ","KRUGW","LATJM","LEELE","LEMJH","LIJNI","LINZZ","LOSBA","MAAGA","MAATA","MAGGG","MARJH","Marjo","MARKC","MARRD","MAUSN","MAZEP","MCBOV","MEINM","MEULR","MINUA","MUILL","MULJW","NIEMJ","NIERT","NIJMH","NOOMA","OCELL","OELEW","OMARA","OOMSI","OTTED","OTTER","OUDRS","PADTA","PARIS","Peercoach INF/TI","PEIAC","PIJPC","PIVAO","PLOIJ","PLOMW","POELMA","POTJG","PROEFMT","RAAJB","REKGF","RESBB","RESCMD","RESCMI","RESCOM","RESEXT","RESINT","RESMT","REVEE","ROMAW","ROONM","SALMG","SATTK","SCHCJ","SCHIR","SCHMN","SCJAS","SILCM","SITDE","SLEEC","SLINM","SLOBJ","SMESA","SMIMA","SNOEC","SPOEE","SPRAS","STIEM","STOLC","STOLK","STUDAS","TENTCOM","TENTINT","TERPM","THIPN","TJAJY","TONIR","UBERT","UGUZS","VAC","VAC-INF","VAC INF","vacature","Vacature","Vacature TI","Vacature TI SLC","VACCMD","VACCO","VACCO1","VACINF","VACINT","VELFJ","VERBM","VERDD","VISEL","VISEV","VOGTJ","VOSID","VRAJL","VREDK","WAARP","WENME","WILLI","WILTM","WINDC","WITHU","ZEELV","ASCHE","HINKM","BLJAN","VRIED","AMMMQ","TIMWH","TODEM","RAMAE","SMEEM","POLAK","Mortaza","TERSF","Onbegeleid","PLUGM","VACCO2","VACCO3","VACCO4","ROODA","ETHME","Michelle","TINPRO01-6","GRIJM","GELDV","alle CO docenten","SANDK","JOLAU","NIEHL","HELGD"];
+ var rooms = ["EXT","H.1.110","H.1.112","H.1.114","H.1.206","H.1.306","H.1.308","H.1.312","H.1.315","H.1.318","H.1.403","H.2.111","H.2.204","H.2.306","H.2.308","H.2.318","H.2.403","H.3.206","H.3.308","H.3.312","H.3.403","H.4.308","H.4.312","H.4.318","H.5.314","W.0.116","WD.01.003","WD.01.016","WD.01.019","WD.02.002","WD.02.016","WD.02.019","WD.03.005","WD.03.033","WD.04.002","WD.05.002","WD.05.005","WD.05.013","WD.05.018","WN.01.022","WN.02.007","WN.02.017","WN.02.022","WN.02.026","WN.03.007","WN.03.017","WN.03.022","WN.05.025","WD.04.020","WD.04.016","H.3.111","H.4.115","Spreekkamer","T30","Extern","extern","auditorium RDM","WN.01.014","Maaspodium","geen lokaal","t","WD.00.026","Zie mail"];
+ var flcl = 1; var flte = 1;
+function ChangeStudentOptions(Form)
+{
+ var type = Form.type[Form.type.selectedIndex].value;
+ if (type != "s")
+    return;
+ var nr = Form.classes[Form.classes.selectedIndex].value;
+ Form.element.length = 0;
+ var idx = 0;
+ for (i = 0; i < students.length; i++)
+ {
+   if (nr == 0 || studtable[i] == nr)
+   {
+      Form.element[idx] = new Option(students[i], i+1);
+      idx++;
+   }
+ }
+	doDisplayTimetable(Form, topDir);
+}
+
+function ChangeElementOptions(Form)
+{
+ setselclass("empty");
+ Form.element.length = 0;
+ var type = Form.type[Form.type.selectedIndex].value;
+ switch(type)
+ {
+	case "c": PopulateElementOption(Form, classes, 0); break;
+	case "w": PopulateElementOption(Form, classes, flcl); break;
+	case "t": PopulateElementOption(Form, teachers, 0); break;
+	case "v": PopulateElementOption(Form, teachers, flte); break;
+	case "r": PopulateElementOption(Form, rooms, 0); break;
+	case "f": PopulateElementOption(Form, subjects, 0); break;
+	case "g": PopulateElementOption(Form, corridors, 0); break;
+	case "s": 
+	{
+        setselclass("restore");
+        PopulateElementOption(Form, students, 0); 
+        break;
+    }
+ }
+
+ return;
+}
+
+function SelectElement(Form, name)
+{
+	var art = getParameter(parent.location.href, "art");
+	if (art != "")
+	{
+		for (var i = 0; i < Form.type.length; i++)
+		{
+			if (Form.type[i].value == art)
+			{
+				Form.type.selectedIndex = i;
+				break;
+			}
+		}
+	}
+	ChangeElementOptions(Form);
+	for (var i = 0; i < Form.element.length; i++)
+	{
+		if (Form.element[i].text == name)
+		{
+			Form.element.selectedIndex = i;
+			break;
+		}
+	}
+}
+
+function OnLoad(Form)
+{
+    setselclass("save");
+    
+	var weeknr = WeekOfYear(new Date);
+	for (var i = 0; i < Form.week.options.length; i++)
+	{
+		if (Form.week.options[i].value == weeknr)
+			Form.week.options[i].selected = true;
+	}
+
+	var name = "";
+	try 
+	{
+		name = getParameter(parent.location.href, "name");
+	}
+	catch (e) {};
+	if (name == "")
+	{
+		ChangeElementOptions(Form);
+		Form.element.selectedIndex = -1;
+		parent.main.location = "../welcome.htm";
+	}
+	else
+	{
+		SelectElement(Form, name);
+		doDisplayTimetable(Form, topDir);
+	}
+}
+//test2
+</script></head><body class="nav" onload="OnLoad(document.forms[0]);">
+
+<form name="NavBar" method="post">
+<table class="nav" width="100%" border="0" cellspacing="2" cellpadding="0">
+
+     <!-- hint logo -->
+       <tbody><tr><td height="39" align="left" class="tabelle" rowspan="2">
+      <span class="selection"><nobr></nobr><img src="./Navigation_files/logo.gif" alt="Logo" width="84" height="80"></span>     </td>
+		<td class="tabelle"><img src="./Navigation_files/text.gif" alt="Logo" width="281" height="24"></td>
+     <!-- week selection -->
+     <td align="left" valign="bottom" class="tabelle" title="Kies de kalenderweek.">
+      <span class="selection">
+       <nobr>
+        Kalenderweek<br>
+        <span class="absatz">
+         &nbsp;<br>
+        </span>
+
+       </nobr>
+      </span>
+     </td>
+
+     <!-- type selection -->
+     <td align="left" valign="bottom" class="tabelle" title="Welk soort rooster wil je zien?">
+      <span class="selection">
+       <nobr>
+        Soort<br>
+        <span class="absatz">
+         &nbsp;<br>
+        </span>
+       </nobr>
+      </span>
+     </td>
+
+
+
+     <!-- element selection -->
+     <td align="left" valign="bottom" class="tabelle" title="In welke groep zit je? Welke lokaal zoek je? of Welke docent wil je zien?">
+      <span class="selection">
+       <nobr>
+        Element<br>
+        <span class="absatz">
+         &nbsp;<br>
+        </span>
+       </nobr>
+      </span>
+     </td>
+
+     <!--leeres Feld-->
+     <td width="100%" class="tabelle">     </td> 
+       </tr><tr>
+
+         <td height="27" align="left" class="tabelle">&nbsp;</td>
+         <td align="left" class="tabelle" title="Kies de kalenderweek."><span class="selection">
+
+        <select name="week" class="selectboxK1" onchange="doDisplayTimetable(NavBar, topDir);">
+<option value="17">23-04-2018</option>
+<option value="18">30-04-2018</option>
+<option value="19">07-05-2018</option>
+<option value="20">14-05-2018</option>
+<option value="21">21-05-2018</option>
+<option value="22">28-05-2018</option>
+<option value="23">04-06-2018</option>
+<option value="24">11-06-2018</option>
+<option value="25">18-06-2018</option>
+<option value="26">25-06-2018</option>
+        </select>
+         </span>
+	</td>
+
+         <td align="left" class="tabelle" title="Welk soort rooster wil je zien?"><span class="selection">
+        <select name="type" class="selectboxK1" onchange="ChangeElementOptions(NavBar);">
+<option value="c">Klassen</option>
+<option value="t">Docenten</option>
+<option value="r">Lokalen</option>
+        </select>
+         </span>
+	</td>
+
+
+         <td align="left" class="tabelle" title="In welke groep zit je? Welke lokaal zoek je? of Welke docent wil je zien?"><span class="selection">
+        <select name="element" class="selectbox" onchange="doDisplayTimetable(NavBar, topDir);">
+		
+        <option value="1">BO-COM</option><option value="2">BO-DINF</option><option value="3">BO-INF</option><option value="4">BO-TI</option><option value="5">CMD1A</option><option value="6">CMD1B</option><option value="7">CMD1C</option><option value="8">CMD1D</option><option value="9">CMD1E</option><option value="10">CMD1F</option><option value="11">CMD1G</option><option value="12">CMD1H</option><option value="13">CMD2A</option><option value="14">CMD2B</option><option value="15">CMD2C</option><option value="16">CMD2D</option><option value="17">CMD2E</option><option value="18">CMD3A</option><option value="19">CMD3B</option><option value="20">CMD3C</option><option value="21">CMD3D</option><option value="22">CMD3X</option><option value="23">CMD4A</option><option value="24">CMD4B</option><option value="25">CMD4C</option><option value="26">CMD4D</option><option value="27">CMD-BO</option><option value="28">COD2</option><option value="29">COD3</option><option value="30">COD4</option><option value="31">COD-AD3</option><option value="32">COV1A</option><option value="33">COV1B</option><option value="34">COV1C</option><option value="35">COV1D</option><option value="36">COV1E</option><option value="37">COV1F</option><option value="38">COV1G</option><option value="39">COV1V</option><option value="40">COV2A</option><option value="41">COV2B</option><option value="42">COV2C</option><option value="43">COV2D</option><option value="44">COV2E</option><option value="45">COV3A</option><option value="46">COV3B</option><option value="47">COV3C</option><option value="48">COV3D</option><option value="49">COV3E</option><option value="50">COV3F</option><option value="51">COV3-HP</option><option value="52">COV4A</option><option value="53">COV4B</option><option value="54">COV4C</option><option value="55">COV4D</option><option value="56">COV4E</option><option value="57">COV4F</option><option value="58">COV4G</option><option value="59">COV5X</option><option value="60">COV6X</option><option value="61">COV-AD3</option><option value="62">DCMD1A</option><option value="63">DCMD2A</option><option value="64">DCMD3A</option><option value="65">DCMD4A</option><option value="66">DINF1</option><option value="67">DINF2</option><option value="68">DINF3</option><option value="69">DINF4</option><option value="70">INF1A</option><option value="71">INF1B</option><option value="72">INF1C</option><option value="73">INF1D</option><option value="74">INF1E</option><option value="75">INF1F</option><option value="76">INF1G</option><option value="77">INF1H</option><option value="78">INF1I</option><option value="79">INF1J</option><option value="80">INF1K</option><option value="81">INF1L</option><option value="82">INF2A</option><option value="83">INF2B</option><option value="84">INF2C</option><option value="85">INF2D</option><option value="86">INF2E</option><option value="87">INF2F</option><option value="88">INF3A</option><option value="89">INF3B</option><option value="90">INF3C</option><option value="91">INF3D</option><option value="92">INF4A</option><option value="93">INF4B</option><option value="94">INF4C</option><option value="95">KEU AAR01</option><option value="96">KEU ANI01</option><option value="97">KEU BET01</option><option value="98">KEU FAM01K</option><option value="99">KEU FSO01K</option><option value="100">KEU HUV01H</option><option value="101">KEU INF01K</option><option value="102">KEU IPR01K</option><option value="103">KEU JAV01K</option><option value="104">KEU LEG01K</option><option value="105">KEU LEX01K</option><option value="106">KEU MOD01K</option><option value="107">KEU NWB01K</option><option value="108">KEU OVC01K</option><option value="109">KEU RTV01K</option><option value="110">KEU RUC01K</option><option value="111">KEU SO201K</option><option value="112">KEU SOU01K</option><option value="113">KEU SPW01K</option><option value="114">KEU STB01K</option><option value="115">KEU STN01K</option><option value="116">KEU VIE01K</option><option value="117">KEU VIS01K</option><option value="118">KEU WPB01K</option><option value="119">MIN DIP01</option><option value="120">MIN EDT01</option><option value="121">MIN ENS02</option><option value="122">MIN GET01</option><option value="123">MIN IBR01</option><option value="124">MIN IED03</option><option value="125">MIN IED1A</option><option value="126">MIN IED1B</option><option value="127">MIN ILB01</option><option value="128">MIN JOU01</option><option value="129">MIN PRS01</option><option value="130">MIN SLA01</option><option value="131">MIN SMO</option><option value="132">MIN UID01</option><option value="133">MINBOD02</option><option value="134">MINBOD02A</option><option value="135">MINBOD02B</option><option value="136">MINIED1A</option><option value="137">MINIED1B</option><option value="138">MINIED1C</option><option value="139">RESCMD</option><option value="140">TENT</option><option value="141">TI1A</option><option value="142">TI1B</option><option value="143">TI1C</option><option value="144">TI2A</option><option value="145">TI2B</option><option value="146">TI3A</option><option value="147">TI3B</option><option value="148">TI4A</option><option value="149">TI4B</option><option value="150">uitloop lokaal</option><option value="151">RESINF</option><option value="152">CMDLABEXP</option><option value="153">CMDLABVD</option><option value="154">CMDLABIAD</option></select>
+         </span>
+	</td>
+
+         <td class="tabelle"></td>
+
+    </tr></tbody></table>
+</form>
+
+
+</body></html>
